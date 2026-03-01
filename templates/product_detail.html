@@ -3,33 +3,18 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-md-6">
-            {% if product.images %}
-                <div id="carouselExample" class="carousel slide shadow-lg">
-                    <div class="carousel-inner">
-                        {% for img in product.images %}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                <img src="{{ url_for('static', filename='uploads/' + img) }}" class="d-block w-100 rounded" alt="{{ product.name }}">
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
+    <h1>{{ product.name }}</h1>
+    <p class="fs-3">₹ {{ "%.2f"|format(product.price) }}</p>
+
+    {% if product.images %}
+        <div class="row">
+            {% for img in product.images %}
+                <div class="col-md-4 mb-3">
+                    <img src="{{ url_for('static', filename='uploads/' + img) }}" class="img-fluid rounded" alt="{{ product.name }}">
                 </div>
-            {% else %}
-                <img src="https://via.placeholder.com/600x400?text=No+Images" class="img-fluid rounded shadow" alt="No Image">
-            {% endif %}
+            {% endfor %}
         </div>
-        <div class="col-md-6">
-            <h1 class="fw-bold">{{ product.name }}</h1>
-            <p class="price-badge display-5">₹ {{ "%.2f"|format(product.price) }}</p>
-            <p class="lead">Multiple images available in gallery above.</p>
-            <a href="{{ url_for('catalog') }}" class="btn btn-outline-primary btn-lg">Back to Catalog</a>
-        </div>
-    </div>
+    {% else %}
+        <p>No images available.</p>
+    {% endif %}
 {% endblock %}
