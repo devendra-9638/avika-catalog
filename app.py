@@ -47,22 +47,19 @@ def home():
 def catalog():
     products = load_products()
     
-    # Fix missing id + convert price to float safely (ये हिस्सा add किया)
+    # Fix missing id + convert price to float safely
     for p in products:
         if "id" not in p:
             p["id"] = str(uuid.uuid4())
         
-        # Price को float में convert अगर string है
         if isinstance(p.get("price"), str):
             try:
                 p["price"] = float(p["price"])
             except (ValueError, TypeError):
-                p["price"] = 0.0  # invalid price को 0 कर दिया (या चाहो तो skip कर सकते हो)
+                p["price"] = 0.0
     
-    # Sort by id (newest first) – uuid string reverse order roughly newest पहले
     products.sort(key=lambda x: x["id"], reverse=True)
-    
-    save_products(products)  # updated ids और prices save हो जाएंगे
+    save_products(products)
     
     return render_template("catalog.html", products=products)
 
@@ -106,7 +103,7 @@ def upload():
         new_product = {
             "id": str(uuid.uuid4()),
             "name": name,
-            "price": price,          # float में save हो रहा है
+            "price": price,
             "images": saved_files
         }
         products.append(new_product)
