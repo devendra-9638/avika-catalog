@@ -24,11 +24,26 @@ Users can upload products with multiple images, view a beautiful catalog, and se
 
 ## 🚀 Live Demo
 🔗 **Coming Soon** — Deployed on Render: https://avika-catalog.onrender.com  
-*(Update this link after successful deployment)*
+*(Update this link after deployment)*
+
+## 📸 Screenshots
+(Add your screenshots to a `screenshots/` folder in the repo)
+
+![Home Page](screenshots/home.png)  
+*Creative landing page with hero section & featured products*
+
+![Catalog Page](screenshots/catalog.png)  
+*Responsive product grid with hover effects*
+
+![Upload Page](screenshots/upload.png)  
+*Clean form for adding products*
+
+![Product Detail](screenshots/detail.png)  
+*Image carousel on detail view*
 
 ## 🏁 Quick Start (Local Setup)
 
-1. **Clone the repo**
+1. Clone the repo:
    ```bash
    git clone https://github.com/yourusername/avika-catalog.git
    cd avika-catalog
