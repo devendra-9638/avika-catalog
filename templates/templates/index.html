@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to Avika Catalog{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Section -->
+    <section class="hero text-center text-white py-5" style="
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 0 0 50px 50px;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    ">
+        <div class="container position-relative z-1">
+            <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInDown">
+                Avika Product Catalog
+            </h1>
+            <p class="lead fs-4 mb-5 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                Discover amazing products • Add your favorites • Shop smart in Ahmedabad style! ✨
+            </p>
+            <div class="d-flex justify-content-center gap-4 flex-wrap">
+                <a href="{{ url_for('catalog') }}" class="btn btn-light btn-lg px-5 py-3 fw-bold shadow-lg">
+                    Explore Catalog →
+                </a>
+                <a href="{{ url_for('upload') }}" class="btn btn-outline-light btn-lg px-5 py-3 fw-bold">
+                    Add New Product +
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5 text-dark">Featured Products 🔥</h2>
+
+            {% if featured_products %}
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for product in featured_products %}
+                        <div class="col">
+                            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden">
+                                {% if product.images %}
+                                    <img src="{{ url_for('static', filename='uploads/' + product.images[0]) }}" 
+                                         class="card-img-top" alt="{{ product.name }}" 
+                                         style="height: 250px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                                        <span class="text-muted fs-4">No Image</span>
+                                    </div>
+                                {% endif %}
+                                <div class="card-body text-center">
+                                    <h5 class="card-title fw-bold">{{ product.name }}</h5>
+                                    <p class="text-danger fs-4 fw-bold mb-3">₹ {{ "%.2f"|format(product.price) }}</p>
+                                    <a href="{{ url_for('product_detail', pid=product.id) }}" 
+                                       class="btn btn-primary stretched-link">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <h4 class="text-muted">No featured products yet...</h4>
+                    <a href="{{ url_for('upload') }}" class="btn btn-success mt-3">Add Your First Product!</a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Extra Call to Action -->
+    <section class="py-5 bg-light text-center">
+        <div class="container">
+            <h3 class="fw-bold mb-4">Ready to showcase your items?</h3>
+            <p class="lead mb-4">Join our growing catalog and reach more buyers!</p>
+            <a href="{{ url_for('upload') }}" class="btn btn-primary btn-lg px-5">Start Adding Now</a>
+        </div>
+    </section>
+
+{% endblock %}
